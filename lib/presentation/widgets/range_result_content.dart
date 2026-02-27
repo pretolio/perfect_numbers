@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../core/design/app_theme.dart';
 import '../../domain/entities/perfect_number_result.dart';
 import 'result_card.dart';
 
@@ -17,40 +18,46 @@ class RangeResultContent extends StatelessWidget {
         children: [
           ResultCard(
             title: 'Resultado da Busca',
-            backgroundColor: hasResults ? Colors.green[50] : Colors.orange[50],
+            backgroundColor: hasResults ? AppTheme.primary : AppTheme.secondary,
+            titleColor: AppTheme.textLight,
             content: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   'Intervalo: ${result.start} até ${result.end}',
-                  style: Theme.of(context).textTheme.bodyLarge,
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        color: AppTheme.textLight,
+                      ),
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: AppTheme.spacingSm),
                 Text(
                   hasResults
                       ? 'Encontrados: ${result.count} número(s) perfeito(s)'
                       : 'Nenhum número perfeito encontrado neste intervalo',
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        color: hasResults ? Colors.green[700] : Colors.orange[700],
+                        color: AppTheme.textLight,
+                        fontWeight: FontWeight.bold,
                       ),
                 ),
               ],
             ),
           ),
           if (hasResults) ...[
-            const SizedBox(height: 16),
+            const SizedBox(height: AppTheme.spacingMd),
             ResultCard(
               title: 'Números Perfeitos',
               content: Wrap(
-                spacing: 8,
-                runSpacing: 8,
+                spacing: AppTheme.spacingSm,
+                runSpacing: AppTheme.spacingSm,
                 children: result.perfectNumbers
                     .map((n) => Chip(
                           label: Text(
                             n.toString(),
-                            style: const TextStyle(fontWeight: FontWeight.bold),
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: AppTheme.chipText,
+                            ),
                           ),
-                          backgroundColor: Colors.blue[100],
                         ))
                     .toList(),
               ),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../core/design/app_theme.dart';
+
 /// Botão com estado de loading integrado
 class LoadingButton extends StatelessWidget {
   final String text;
@@ -20,13 +22,20 @@ class LoadingButton extends StatelessWidget {
       height: 48,
       child: ElevatedButton(
         onPressed: isLoading ? null : onPressed,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: AppTheme.primary,
+          foregroundColor: AppTheme.textLight,
+          shape: RoundedRectangleBorder(
+            borderRadius: AppTheme.borderRadiusMedium,
+          ),
+        ),
         child: isLoading
             ? const SizedBox(
                 width: 24,
                 height: 24,
                 child: CircularProgressIndicator(
                   strokeWidth: 2,
-                  color: Colors.white,
+                  color: AppTheme.textLight,
                 ),
               )
             : Text(text),

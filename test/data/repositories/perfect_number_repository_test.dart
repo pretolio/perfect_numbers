@@ -1,5 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:perfect_numbers/core/result/result.dart';
 import 'package:perfect_numbers/data/repositories/perfect_number_repository_impl.dart';
 import 'package:perfect_numbers/data/services/perfect_number_calculator.dart';
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'core/design/app_theme.dart';
 import 'data/repositories/perfect_number_repository_impl.dart';
 import 'data/services/perfect_number_calculator.dart';
 import 'domain/usecases/check_perfect_number_usecase.dart';
@@ -39,20 +40,7 @@ class PerfectNumbersApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Perfect Numbers',
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.blue,
-            brightness: Brightness.light,
-          ),
-          useMaterial3: true,
-        ),
-        darkTheme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.blue,
-            brightness: Brightness.dark,
-          ),
-          useMaterial3: true,
-        ),
+        theme: AppTheme.lightTheme,
         home: const HomePage(),
       ),
     );

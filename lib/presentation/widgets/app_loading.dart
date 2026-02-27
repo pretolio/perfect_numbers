@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../core/design/app_theme.dart';
+
 class AppLoading {
   static OverlayEntry? _overlayEntry;
 
@@ -11,22 +13,27 @@ class AppLoading {
         color: Colors.black54,
         child: Center(
           child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 24),
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppTheme.spacingXl,
+              vertical: AppTheme.spacingLg,
+            ),
             decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(12),
+              color: AppTheme.backgroundCard,
+              borderRadius: AppTheme.borderRadiusMedium,
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const CircularProgressIndicator(),
+                const CircularProgressIndicator(
+                  color: AppTheme.primary,
+                ),
                 if (message != null) ...[
-                  const SizedBox(height: 16),
+                  const SizedBox(height: AppTheme.spacingMd),
                   Text(
                     message,
                     style: const TextStyle(
                       fontSize: 16,
-                      color: Colors.black87,
+                      color: AppTheme.textPrimary,
                     ),
                   ),
                 ],

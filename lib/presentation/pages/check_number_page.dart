@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../core/design/app_theme.dart';
+import '../../core/design/responsive.dart';
+import '../../domain/entities/perfect_number_result.dart';
 import '../viewmodels/check_number_viewmodel.dart';
 import '../widgets/app_loading.dart';
 import '../widgets/app_snackbar.dart';
@@ -51,29 +54,32 @@ class _CheckNumberPageState extends State<CheckNumberPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16),
+    return ResponsiveContainer(
+      maxWidth: ContentWidth.medium,
+      padding: const EdgeInsets.all(AppTheme.spacingMd),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
             'Verificar Número Perfeito',
-            style: Theme.of(context).textTheme.headlineSmall,
+            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                  color: AppTheme.textPrimary,
+                ),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: AppTheme.spacingSm),
           Text(
             'Um número perfeito é igual à soma de seus divisores próprios.',
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: Colors.grey[600],
+                  color: AppTheme.textMuted,
                 ),
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: AppTheme.spacingLg),
           CustomTextField(
             controller: _controller,
             label: 'Número',
             hint: 'Ex: 6, 28, 496',
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: AppTheme.spacingMd),
           Selector<CheckNumberViewModel, bool>(
             selector: (_, vm) => vm.isLoading,
             builder: (context, isLoading, _) {
@@ -86,13 +92,12 @@ class _CheckNumberPageState extends State<CheckNumberPage> {
               );
             },
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: AppTheme.spacingLg),
           Expanded(
-            child: Selector<CheckNumberViewModel, bool>(
-              selector: (_, vm) => vm.result != null,
-              builder: (context, hasResult, _) {
-                if (hasResult) {
-                  final result = context.read<CheckNumberViewModel>().result!;
+            child: Selector<CheckNumberViewModel, PerfectNumberCheckResult?>(
+              selector: (_, vm) => vm.result,
+              builder: (context, result, _) {
+                if (result != null) {
                   return CheckResultContent(result: result);
                 }
 
@@ -100,11 +105,15 @@ class _CheckNumberPageState extends State<CheckNumberPage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.search, size: 64, color: Colors.grey[400]),
-                      const SizedBox(height: 16),
+                      Icon(
+                        Icons.search,
+                        size: 64,
+                        color: AppTheme.backgroundDark,
+                      ),
+                      const SizedBox(height: AppTheme.spacingMd),
                       Text(
                         'Digite um número para verificar',
-                        style: TextStyle(color: Colors.grey[600]),
+                        style: TextStyle(color: AppTheme.textMuted),
                       ),
                     ],
                   ),

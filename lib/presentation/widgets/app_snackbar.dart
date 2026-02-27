@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../core/design/app_theme.dart';
+
 class AppSnackbar {
   static void showError(BuildContext context, String message) {
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
@@ -7,17 +9,25 @@ class AppSnackbar {
       SnackBar(
         content: Row(
           children: [
-            const Icon(Icons.error, color: Colors.white),
-            const SizedBox(width: 12),
-            Expanded(child: Text(message)),
+            const Icon(Icons.error_outline, color: AppTheme.textLight),
+            const SizedBox(width: AppTheme.spacingMd),
+            Expanded(
+              child: Text(
+                message,
+                style: const TextStyle(color: AppTheme.textLight),
+              ),
+            ),
           ],
         ),
-        backgroundColor: Colors.red[700],
+        backgroundColor: AppTheme.error,
         behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: AppTheme.borderRadiusMedium,
+        ),
         duration: const Duration(seconds: 4),
         action: SnackBarAction(
           label: 'OK',
-          textColor: Colors.white,
+          textColor: AppTheme.textLight,
           onPressed: () {
             ScaffoldMessenger.of(context).hideCurrentSnackBar();
           },
@@ -32,22 +42,25 @@ class AppSnackbar {
       SnackBar(
         content: Row(
           children: [
-            const Icon(Icons.warning, color: Colors.black87),
-            const SizedBox(width: 12),
+            const Icon(Icons.warning_amber_outlined, color: AppTheme.textLight),
+            const SizedBox(width: AppTheme.spacingMd),
             Expanded(
               child: Text(
                 message,
-                style: const TextStyle(color: Colors.black87),
+                style: const TextStyle(color: AppTheme.textLight),
               ),
             ),
           ],
         ),
-        backgroundColor: Colors.orange[300],
+        backgroundColor: AppTheme.warning,
         behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: AppTheme.borderRadiusMedium,
+        ),
         duration: const Duration(seconds: 4),
         action: SnackBarAction(
           label: 'OK',
-          textColor: Colors.black87,
+          textColor: AppTheme.textLight,
           onPressed: () {
             ScaffoldMessenger.of(context).hideCurrentSnackBar();
           },
@@ -62,13 +75,21 @@ class AppSnackbar {
       SnackBar(
         content: Row(
           children: [
-            const Icon(Icons.check_circle, color: Colors.white),
-            const SizedBox(width: 12),
-            Expanded(child: Text(message)),
+            const Icon(Icons.check_circle_outline, color: AppTheme.textLight),
+            const SizedBox(width: AppTheme.spacingMd),
+            Expanded(
+              child: Text(
+                message,
+                style: const TextStyle(color: AppTheme.textLight),
+              ),
+            ),
           ],
         ),
-        backgroundColor: Colors.green[700],
+        backgroundColor: AppTheme.success,
         behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: AppTheme.borderRadiusMedium,
+        ),
         duration: const Duration(seconds: 3),
       ),
     );

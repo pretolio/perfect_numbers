@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../core/design/app_theme.dart';
+import '../../core/design/responsive.dart';
+import '../../domain/entities/perfect_number_result.dart';
 import '../viewmodels/find_range_viewmodel.dart';
 import '../widgets/app_loading.dart';
 import '../widgets/app_snackbar.dart';
@@ -53,23 +56,26 @@ class _FindRangePageState extends State<FindRangePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16),
+    return ResponsiveContainer(
+      maxWidth: ContentWidth.medium,
+      padding: const EdgeInsets.all(AppTheme.spacingMd),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
             'Encontrar em Range',
-            style: Theme.of(context).textTheme.headlineSmall,
+            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                  color: AppTheme.textPrimary,
+                ),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: AppTheme.spacingSm),
           Text(
             'Encontre todos os números perfeitos entre dois valores.',
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: Colors.grey[600],
+                  color: AppTheme.textMuted,
                 ),
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: AppTheme.spacingLg),
           Row(
             children: [
               Expanded(
@@ -79,7 +85,7 @@ class _FindRangePageState extends State<FindRangePage> {
                   hint: 'Ex: 1',
                 ),
               ),
-              const SizedBox(width: 16),
+              const SizedBox(width: AppTheme.spacingMd),
               Expanded(
                 child: CustomTextField(
                   controller: _endController,
@@ -89,7 +95,7 @@ class _FindRangePageState extends State<FindRangePage> {
               ),
             ],
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: AppTheme.spacingMd),
           Selector<FindRangeViewModel, bool>(
             selector: (_, vm) => vm.isLoading,
             builder: (context, isLoading, _) {
@@ -105,13 +111,12 @@ class _FindRangePageState extends State<FindRangePage> {
               );
             },
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: AppTheme.spacingLg),
           Expanded(
-            child: Selector<FindRangeViewModel, bool>(
-              selector: (_, vm) => vm.result != null,
-              builder: (context, hasResult, _) {
-                if (hasResult) {
-                  final result = context.read<FindRangeViewModel>().result!;
+            child: Selector<FindRangeViewModel, PerfectNumbersRangeResult?>(
+              selector: (_, vm) => vm.result,
+              builder: (context, result, _) {
+                if (result != null) {
                   return RangeResultContent(result: result);
                 }
 
@@ -119,11 +124,15 @@ class _FindRangePageState extends State<FindRangePage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.format_list_numbered, size: 64, color: Colors.grey[400]),
-                      const SizedBox(height: 16),
+                      Icon(
+                        Icons.format_list_numbered,
+                        size: 64,
+                        color: AppTheme.backgroundDark,
+                      ),
+                      const SizedBox(height: AppTheme.spacingMd),
                       Text(
                         'Defina um intervalo para buscar',
-                        style: TextStyle(color: Colors.grey[600]),
+                        style: TextStyle(color: AppTheme.textMuted),
                       ),
                     ],
                   ),

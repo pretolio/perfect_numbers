@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../core/design/app_theme.dart';
+
 /// Widget reutilizável para input de números
 /// Interface Segregation - widget focado em uma função específica
 class CustomTextField extends StatelessWidget {
@@ -24,10 +26,12 @@ class CustomTextField extends StatelessWidget {
       decoration: InputDecoration(
         labelText: label,
         hintText: hint,
-        border: const OutlineInputBorder(),
+        border: OutlineInputBorder(
+          borderRadius: AppTheme.borderRadiusMedium,
+        ),
         contentPadding: const EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 12,
+          horizontal: AppTheme.spacingMd,
+          vertical: AppTheme.spacingMd,
         ),
       ),
     );
